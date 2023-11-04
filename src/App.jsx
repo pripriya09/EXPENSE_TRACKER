@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
+import "./App.css"
 
 function App() {
   const[budget,setBudget]=useState(0)
@@ -6,14 +7,25 @@ function App() {
   const [index,setIndex]=useState("")
   const [info,setInfo]=useState([])
   const [Amount,setAmount]=useState([])
+  const [remain,setRemain] =useState("")
+
 // const [sequence, setSequence] = useState(0);
 
 
   function handleBlur(event){
-    setBudget(event.target.value);
-    
+ const updateBudget= event.target.value;
+ if((updateBudget>0)){
+ setBudget(updateBudget)
+ setInp(0)
+ }
+
+  
    
   };
+  function amountremain(){
+   setRemain(budget-inp)
+
+  }
 
 
 function handleSubmit(e){
@@ -29,18 +41,22 @@ function handleSubmit(e){
   // setSequence("")
 
 
-  setInp(""); 
+  // setInp(""); 
+
+amountremain()
 }
+
 
 
   return (
     <div id="main">
        
 <div id="wrapper">
+  <h2>EXPENSE TRACKER</h2>
       <div id="information">
         <div id="expans">
           <input
-            type="text"
+            type="number"
             placeholder="Enter Total Budget for this month"
             id="budget"
             onBlur={handleBlur}
@@ -50,7 +66,7 @@ function handleSubmit(e){
         <div id="detail">
           <h3 id="total">Total:{budget}</h3>
           <h3 id="spent">Spent:{inp}</h3>
-          <h3 id="remaining">Remaining:</h3>
+          <h3 id="remaining">Remaining:{remain}</h3>
         </div>
       </div>
 
@@ -61,7 +77,7 @@ function handleSubmit(e){
           onChange={(e) => setIndex(e.target.value)}
 
           /><br />
-          <input type="text" placeholder="Expense Amount" 
+          <input type="number" placeholder="Expense Amount" 
           value={inp}  
           onChange={(e) => setInp(e.target.value)}
           /><br />
@@ -70,7 +86,7 @@ function handleSubmit(e){
       </div>
 
       <div id="expenseTracker">
-        <table>
+        {/* <table>
           <thead>  
             <tr> 
                 
@@ -108,6 +124,32 @@ function handleSubmit(e){
               
            </tr>
             </thead>
+         </table> */}
+         
+         
+         
+         <table>
+          <thead>
+            <tr>
+            <th>S.No</th>
+            <th>Info</th>
+            <th>Amount</th>
+            </tr>
+                 {/* <tbody> */}
+                 {Amount.map((item, index) => (
+                  <tr key={index}>
+                   <td>{index + 1}</td>
+                   <td>{info[index]}</td>
+                    <td>{item}</td>
+              </tr> 
+          ))}
+       
+               
+                 {/* </tbody> */}
+
+
+
+          </thead>
          </table>
        </div>
      </div>
